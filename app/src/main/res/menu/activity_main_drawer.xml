@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/grp1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_scenario_1"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Scenario 1" />
+        <item
+            android:id="@+id/nav_scenario_2"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Scenario 2" />
+        <item
+            android:id="@+id/nav_scenario_3"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Scenario 3" />
+    </group>
+
+    <group android:id="@+id/grp2" android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_documentation"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Documentation" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Share" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="About" />
+    </group>
+
+</menu>

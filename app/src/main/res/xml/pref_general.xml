@@ -1,0 +1,68 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="WebView">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="enable_javascript"
+            android:summary="@string/pref_description_enable_javascript"
+            android:title="@string/pref_title_enable_javascript" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_webview_client"
+            android:summary="@string/pref_description_enable_webview_client"
+            android:title="@string/pref_title_enable_webview_client" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_webview_debugging"
+            android:summary="@string/pref_description_enable_webview_debugging"
+            android:title="@string/pref_title_enable_webview_debugging" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_file_access"
+            android:summary="@string/pref_description_enable_file_access"
+            android:title="@string/pref_title_enable_file_access" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_file_access_from_file_url"
+            android:summary="@string/pref_description_enable_file_access_from_file_url"
+            android:title="@string/pref_title_enable_file_access_from_file_url" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_universal_access_from_file_url"
+            android:summary="@string/pref_description_enable_universal_access_from_file_url"
+            android:title="@string/pref_title_enable_universal_access_from_file_url" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_javascript_interface"
+            android:summary="@string/pref_description_enable_javascript_interface"
+            android:title="@string/pref_title_enable_javascript_interface" />
+    </PreferenceCategory>
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+   <!-- <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_display_name"
+        android:inputType="textCapWords"
+        android:key="example_text"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_display_name" />
+    -->
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <!--
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/pref_example_list_titles"
+        android:entryValues="@array/pref_example_list_values"
+        android:key="example_list"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_add_friends_to_messages" />
+    -->
+
+</PreferenceScreen>

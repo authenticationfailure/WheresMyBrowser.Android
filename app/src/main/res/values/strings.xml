@@ -1,0 +1,97 @@
+<resources>
+    <string name="app_name">Where\'s My Browser</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_preferences">Settings</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_description_enable_javascript">Enables JavaScript using .enableJavaScript(true). If this is false you\'ll still be able to invoke JavaScript via remote debugging.</string>
+    <string name="pref_title_enable_javascript">JavaScript</string>
+    <string name="pref_description_enable_webview_debugging">Enables remote WebView debugging. Connect from Chrome\'s Developer tools.</string>
+    <string name="pref_title_enable_webview_debugging">Remote debugging</string>
+    <string name="pref_description_enable_file_access">Allows access to the file:// resources.</string>
+    <string name="pref_title_enable_file_access">File access</string>
+    <string name="pref_description_enable_file_access_from_file_url">Allows file:// resources to access other files.</string>
+    <string name="pref_title_enable_file_access_from_file_url">File access from file URL</string>
+    <string name="pref_description_enable_universal_access_from_file_url">Allows file:// resources to access resources on the Internet</string>
+    <string name="pref_title_enable_universal_access_from_file_url">Universal access from file URL</string>
+    <string name="pref_description_enable_javascript_interface">Adds a JavaScript interface to the WebView via the method addJavaScriptInterface(). The interface is accessible via JavaScript using the object "javascriptBridge". Changing this setting will reload the current page.</string>
+    <string name="pref_title_enable_javascript_interface">JavaScript Bridge</string>
+    <string name="pref_title_enable_webview_client">Add WebViewClient</string>
+    <string name="pref_description_enable_webview_client">TODO: add webviewclient to the wv so that links are opened inside the WebView</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_about">AboutActivity</string>
+</resources>
