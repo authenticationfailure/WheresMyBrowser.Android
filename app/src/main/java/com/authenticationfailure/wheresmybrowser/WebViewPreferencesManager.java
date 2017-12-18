@@ -35,7 +35,9 @@ class WebViewPreferencesManager {
             editor.putBoolean("enable_javascript_interface", true);
             editor.putBoolean("is_first_run", false);
             editor.commit();
-
+        } else {
+            // Set saved preferences
+            setAll();
         }
 
         preferencesChangeListener = new WebViewPreferencesChangeListener();
@@ -44,6 +46,7 @@ class WebViewPreferencesManager {
 
     public void setAll() {
         setEnableJavaScript();
+        setEnableWebViewClient();
         setEnableWebViewDebugging();
         setEnableAllowFileAccess();
         setEnableAllowFileAccessFromFileURLs();
@@ -52,6 +55,7 @@ class WebViewPreferencesManager {
     }
 
     public void setPreference(String key) {
+        Log.i("Preferences Manager","setting preference '" + key + "'");
         switch (key) {
             case "enable_javascript":
                 setEnableJavaScript();
