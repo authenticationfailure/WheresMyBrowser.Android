@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -59,6 +60,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        goButton = findViewById(R.id.goButton);
+        webview = findViewById(R.id.webView);
+        urlBar = findViewById(R.id.urlText);
+        webViewProgressBar = findViewById(R.id.webViewProgressBar);
+
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -78,6 +84,7 @@ public class MainActivity extends AppCompatActivity
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 //Hide keyboard on drawer opening
+                webview.requestFocus();
                 InputMethodManager inputMethodManager = (InputMethodManager)  getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
@@ -88,11 +95,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        goButton = findViewById(R.id.goButton);
-        webview = findViewById(R.id.webView);
-        urlBar = findViewById(R.id.urlText);
-        webViewProgressBar = findViewById(R.id.webViewProgressBar);
 
         // Learn about web views here:
         // https://developer.android.com/guide/webapps/webview.html
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         /*
-        *  webview settings are managed by the WebViewPreferencesManager
+        *  webview settings are managed by the WebViewPreferencesManager class
         *  go check the code
         */
         webViewPreferencesManager = new WebViewPreferencesManager(webview, getApplicationContext());
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity
 
         setupUrlBar();
 
+
+        // Manage the progress bar
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -126,6 +130,13 @@ public class MainActivity extends AppCompatActivity
                 webViewProgressBar.setProgress(newProgress);
             }
         });
+
+        // Workaround for limitations in the use of file:// URI in
+        // SDK >= Android N (API v24)
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }*/
     }
 
     private void requestExternalStoragePrivileges() {
@@ -172,6 +183,8 @@ public class MainActivity extends AppCompatActivity
 
     private void loadURLFromBar() {
         webview.loadUrl(urlBar.getText().toString());
+        InputMethodManager inputMethodManager = (InputMethodManager)  getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
     private void setupUrlBar() {
@@ -217,8 +230,6 @@ public class MainActivity extends AppCompatActivity
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
         }
-        //InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
 
         return super.onOptionsItemSelected(item);
     }
@@ -249,7 +260,7 @@ public class MainActivity extends AppCompatActivity
             settingsEditor.putBoolean("enable_javascript_interface", false);
             settingsEditor.commit();
 
-            urlBar.setText("https://www.authenticationfailure.com/");
+            urlBar.setText("file:///android_asset/web/index.html");
             loadURLFromBar();
 
         } else if (id == R.id.nav_scenario_2) {

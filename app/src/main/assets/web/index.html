@@ -1,5 +1,36 @@
+<!DOCTYPE html>
 <html>
     <body>
         <h1>Where's my browser?</h1>
+        <h2>Scenario 1 - Resource loaded from file://</h2>
+
+        <p>In this scenario the page is loaded from a file:// URL.</p>
+        <p>Can you exfiltrate the secret from the super secret database?</p>
+        <hr />
+
+        <p>The last comment is:</p>
+        <p id="output" style="background-color: #E0E0E0"></p>
+
+        <form id="payload_form" onsubmit="event.preventDefault(); eval(document.getElementById('payload').value)" action="#">
+            <label for="payload">Your JavaScript payload goes here:</label><br>
+            <textarea id="payload" rows=5 style="width:100%">// Replace last comment
+            document.getElementById("output").innerHTML="My new comment"
+            </textarea>
+            <button id="run_payload" type="submit">Run</button>
+        </form>
+
+        <script>
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    jsonObject=JSON.parse(this.responseText);
+                    document.getElementById("output").innerHTML=jsonObject[4]['body'];
+                }
+            }
+
+            xhttp.open("GET", "http://jsonplaceholder.typicode.com/posts/1/comments/", true);
+            xhttp.send();
+        </script>
     </body>
 </html>
