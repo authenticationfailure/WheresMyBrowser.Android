@@ -2,6 +2,7 @@ package com.authenticationfailure.wheresmybrowser;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         // Workaround for limitations in the use of file:// URI in
-        // SDK >= Android N (API v24)
+        // SDK >= Android N (API v24). This prevents the application from crashing.
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
@@ -250,6 +251,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_scenario_1) {
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setMessage(R.string.scenario_1_description).setTitle(R.string.scenario_1);
+            builder.setPositiveButton("Ok",null);
+            builder.create().show();
+
             // TODO: setup scenario
             settingsEditor.putBoolean("enable_javascript", true);
             settingsEditor.putBoolean("enable_webview_client", true);
@@ -266,6 +273,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_scenario_2) {
 
             // TODO: setup scenario
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setMessage(R.string.scenario_2_description).setTitle(R.string.scenario_2);
+            builder.setPositiveButton("Ok",null);
+            builder.create().show();
+
             settingsEditor.putBoolean("enable_javascript", true);
             settingsEditor.putBoolean("enable_webview_client", true);
             settingsEditor.putBoolean("enable_webview_debugging", true);
@@ -275,7 +288,7 @@ public class MainActivity extends AppCompatActivity
             settingsEditor.putBoolean("enable_javascript_interface", true);
             settingsEditor.commit();
 
-            urlBar.setText("https://www.authenticationfailure.com/");
+            urlBar.setText("http://www.example.com/");
             loadURLFromBar();
 
         } else if (id == R.id.nav_scenario_3) {

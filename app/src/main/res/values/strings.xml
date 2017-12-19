@@ -89,9 +89,13 @@
     <string name="pref_title_enable_javascript_interface">JavaScript Bridge</string>
     <string name="pref_title_enable_webview_client">Add WebViewClient</string>
     <string name="pref_description_enable_webview_client">TODO: add webviewclient to the wv so that links are opened inside the WebView</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Where\'s My Browser</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_about">AboutActivity</string>
+    <string name="scenario_2">Scenario 2</string>
+    <string name="scenario_2_description">The WebView exposes native methods. Can you steal the secret in a man-in-the middle attack?</string>
+    <string name="scenario_1_description">The WebView loads a local resource using a file:// URI. Can you exfiltrate the data stored in the super secret database?</string>
+    <string name="scenario_1">Scenario 1</string>
 </resources>
