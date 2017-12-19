@@ -35,10 +35,9 @@ class WebViewPreferencesManager {
             editor.putBoolean("enable_javascript_interface", true);
             editor.putBoolean("is_first_run", false);
             editor.commit();
-        } else {
-            // Set saved preferences
-            setAll();
         }
+
+        setAll();
 
         preferencesChangeListener = new WebViewPreferencesChangeListener();
         settings.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
@@ -125,6 +124,7 @@ class WebViewPreferencesManager {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             webViewSettings.setAllowFileAccessFromFileURLs(enableFileAccessFromFileURL);
+            webView.reload();
         }
     }
 
@@ -136,6 +136,7 @@ class WebViewPreferencesManager {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             webViewSettings.setAllowUniversalAccessFromFileURLs(enableUniversalAccessFromFileURL);
+            webView.reload();
         }
     }
 
