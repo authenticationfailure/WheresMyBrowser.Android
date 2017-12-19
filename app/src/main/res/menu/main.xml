@@ -7,5 +7,12 @@
         android:icon="@drawable/ic_settings_white_24dp"
         android:title="@string/action_settings"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_history_back"
+        android:icon="@android:drawable/ic_media_previous"
+        android:title="@string/go_back" />
+    <item
+        android:id="@+id/action_request_external_storage"
+        android:title="@string/request_external_storage_access" />
 
 </menu>

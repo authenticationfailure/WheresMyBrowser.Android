@@ -90,12 +90,17 @@
     <string name="pref_title_enable_webview_client">Add WebViewClient</string>
     <string name="pref_description_enable_webview_client">TODO: add webviewclient to the wv so that links are opened inside the WebView</string>
     <string name="title_activity_main">Where\'s My Browser</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="scenario_2">Scenario 2</string>
-    <string name="scenario_2_description">The WebView exposes native methods. Can you steal the secret in a man-in-the middle attack?</string>
-    <string name="scenario_1_description">The WebView loads a local resource using a file:// URI. Can you exfiltrate the data stored in the super secret database?</string>
+    <string name="scenario_2_description">The WebView exposes native methods.\nCan you steal the secret in a man-in-the middle attack by injecting JavaScript code?</string>
+    <string name="scenario_1_description">The WebView loads a local resource using the file:// URI. Learn how to remotely exfiltrate data from the device.</string>
     <string name="scenario_1">Scenario 1</string>
+    <string name="has_access_to_external_storage">The application can already access the external storage</string>
+    <string name="go_back">Go back</string>
+    <string name="request_external_storage_access">Request external storage access</string>
+    <string name="scenario_3">Scenario 3</string>
+    <string name="scenario_3_description">The WebView exposes native methods. Can you steal the secret in a man-in-the middle attack? Unfortunately this time you cannot inject JavaScript code directly.</string>
+
 </resources>

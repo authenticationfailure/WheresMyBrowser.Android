@@ -7,6 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.authenticationfailure.wheresmybrowser.MainActivity"
     tools:showIn="@layout/app_bar_main">
+
     <EditText
         android:id="@+id/urlText"
         android:layout_width="0dp"
@@ -15,24 +16,23 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:contentDescription="URL"
+        android:contentDescription="http://www.example.com"
         android:ems="10"
         android:inputType="textUri"
-        android:text="http://"
         app:layout_constraintBottom_toTopOf="@+id/webView"
         app:layout_constraintEnd_toStartOf="@+id/goButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.49" />
 
-    <Button
+    <ImageButton
         android:id="@+id/goButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Go"
-        app:layout_constraintBaseline_toBaselineOf="@+id/urlText"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/urlText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_media_play" />
 
     <WebView
         android:id="@+id/webView"

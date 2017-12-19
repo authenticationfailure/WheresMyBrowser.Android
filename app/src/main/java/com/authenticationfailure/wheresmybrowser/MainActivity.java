@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -31,12 +32,15 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
@@ -44,7 +48,7 @@ import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button goButton;
+    ImageButton goButton;
     WebView webview;
     EditText urlBar;
     WebViewPreferencesManager webViewPreferencesManager;
@@ -122,13 +126,14 @@ public class MainActivity extends AppCompatActivity
         setupUrlBar();
 
 
-        // Manage the progress bar
+        // Manage the progress bar and update URL bar
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 if (newProgress == 100) { newProgress = 0; };
                 webViewProgressBar.setProgress(newProgress);
+                urlBar.setText(webview.getUrl());
             }
         });
 
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity
         }*/
     }
 
-    private void requestExternalStoragePrivileges() {
+    private boolean requestExternalStoragePrivileges() {
         // Ask for external SD card permission for Android 6.0 API 23
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int storagePermission = ContextCompat.checkSelfPermission(this,
@@ -150,8 +155,12 @@ public class MainActivity extends AppCompatActivity
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         REQUEST_SD_WRITE_PERMISSION);
+                return false;
+            } else {
+                return true;
             }
         }
+        return true;
     }
 
     private void setupData() {
@@ -166,20 +175,6 @@ public class MainActivity extends AppCompatActivity
         cursor.moveToFirst();
         Log.i("SecretDatabase", cursor.getString(cursor.getColumnIndex("secret")));
 
-        File file;
-        try {
-            file = new File(getFilesDir().getCanonicalPath().concat("test.txt"));
-            if (file.exists()) {
-                Log.i("FILE_CREATE","File" + file.getAbsolutePath() + " already exists");
-            } else {
-                FileOutputStream fOut = new FileOutputStream(file);
-                fOut.write("Hello".getBytes());
-                fOut.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("FILE_CREATE", "Error creating file");
-        }
     }
 
     private void loadURLFromBar() {
@@ -230,6 +225,13 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
+        } else if (id == R.id.action_history_back) {
+            if (webview.canGoBack()) webview.goBack();
+        } else if (id == R.id.action_request_external_storage) {
+            if (requestExternalStoragePrivileges()) {
+                Toast.makeText(getApplicationContext(), R.string.has_access_to_external_storage,
+                        Toast.LENGTH_LONG).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -246,7 +248,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(aboutIntent);
         } else if (id == R.id.nav_documentation) {
             // TODO: update the URL after uploading the documentation
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.authenticationfailure.com"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.authenticationfailure.com/"));
             startActivity(intent);
 
         } else if (id == R.id.nav_scenario_1) {
@@ -267,7 +269,19 @@ public class MainActivity extends AppCompatActivity
             settingsEditor.putBoolean("enable_javascript_interface", false);
             settingsEditor.commit();
 
-            urlBar.setText("file:///android_asset/web/index.html");
+            try {
+                String scenario1Asset = "web/scenario1.html";
+                String scenario1File = getFilesDir().getCanonicalPath().concat("/scenario1.html");
+
+                FileUtils.copyAssetToFile(getApplicationContext(), scenario1Asset, scenario1File);
+
+                urlBar.setText("file://" + scenario1File);
+                loadURLFromBar();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("FILE_CREATE", "Error creating file");
+            }
             loadURLFromBar();
 
         } else if (id == R.id.nav_scenario_2) {
@@ -293,10 +307,38 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_scenario_3) {
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setMessage(R.string.scenario_3_description).setTitle(R.string.scenario_3);
+            builder.setPositiveButton("Ok",null);
+            builder.create().show();
+
             // TODO: setup scenario
+            settingsEditor.putBoolean("enable_javascript", true);
+            settingsEditor.putBoolean("enable_webview_client", true);
+            settingsEditor.putBoolean("enable_webview_debugging", true);
+            settingsEditor.putBoolean("enable_file_access", true);
+            settingsEditor.putBoolean("enable_file_access_from_file_url", true);
+            settingsEditor.putBoolean("enable_universal_access_from_file_url", true);
+            settingsEditor.putBoolean("enable_javascript_interface", true);
+            settingsEditor.commit();
+
+            try {
+                String scenario3Asset = "web/scenario3.html";
+                String scenario3File = getFilesDir().getCanonicalPath().concat("/scenario3.html");
+
+                FileUtils.copyAssetToFile(getApplicationContext(), scenario3Asset, scenario3File);
+
+                urlBar.setText("file://" + scenario3File);
+                loadURLFromBar();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("FILE_CREATE", "Error creating file");
+            }
 
         } else if (id == R.id.nav_share) {
-
+            // TODO: add sharing actions
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
