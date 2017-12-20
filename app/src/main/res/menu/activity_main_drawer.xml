@@ -23,7 +23,7 @@
     <group android:id="@+id/grp2" android:checkableBehavior="none">
         <item
             android:id="@+id/nav_documentation"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_book_black_24dp"
             android:title="Documentation" />
         <item
             android:id="@+id/nav_share"
