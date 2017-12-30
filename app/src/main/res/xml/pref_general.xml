@@ -1,43 +1,41 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="WebView">
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_javascript"
+        android:summary="@string/pref_description_enable_javascript"
+        android:title="@string/pref_title_enable_javascript" />
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="enable_javascript"
-            android:summary="@string/pref_description_enable_javascript"
-            android:title="@string/pref_title_enable_javascript" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_webview_client"
-            android:summary="@string/pref_description_enable_webview_client"
-            android:title="@string/pref_title_enable_webview_client" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_webview_debugging"
-            android:summary="@string/pref_description_enable_webview_debugging"
-            android:title="@string/pref_title_enable_webview_debugging" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_file_access"
-            android:summary="@string/pref_description_enable_file_access"
-            android:title="@string/pref_title_enable_file_access" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_file_access_from_file_url"
-            android:summary="@string/pref_description_enable_file_access_from_file_url"
-            android:title="@string/pref_title_enable_file_access_from_file_url" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_universal_access_from_file_url"
-            android:summary="@string/pref_description_enable_universal_access_from_file_url"
-            android:title="@string/pref_title_enable_universal_access_from_file_url" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_javascript_interface"
-            android:summary="@string/pref_description_enable_javascript_interface"
-            android:title="@string/pref_title_enable_javascript_interface" />
-    </PreferenceCategory>
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_webview_debugging"
+        android:summary="@string/pref_description_enable_webview_debugging"
+        android:title="@string/pref_title_enable_webview_debugging" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_file_access"
+        android:summary="@string/pref_description_enable_file_access"
+        android:title="@string/pref_title_enable_file_access" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_file_access_from_file_url"
+        android:summary="@string/pref_description_enable_file_access_from_file_url"
+        android:title="@string/pref_title_enable_file_access_from_file_url" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_universal_access_from_file_url"
+        android:summary="@string/pref_description_enable_universal_access_from_file_url"
+        android:title="@string/pref_title_enable_universal_access_from_file_url" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_javascript_interface"
+        android:summary="@string/pref_description_enable_javascript_interface"
+        android:title="@string/pref_title_enable_javascript_interface" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_webview_client"
+        android:summary="@string/pref_description_enable_webview_client"
+        android:title="@string/pref_title_enable_webview_client" />
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
