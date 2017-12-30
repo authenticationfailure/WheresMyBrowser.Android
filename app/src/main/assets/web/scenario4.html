@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h1, h2, h3   {color: #fb8c00;}
+    </style>
+</head>
+<body>
+<h1>Scenario 4</h1>
+<h2>WebView content loaded from String</h2>
+<h3>Description</h3>
+<p>In this scenario the content of the page is loaded from a string using "loadDataWithBaseURL" and a baseURL set to "null".</p>
+<h3>Tasks</h3>
+<ol>
+    <li>What is the origin set to?</li>
+    <li>The WebView settings are the same of Scenario 1. Is it still possible to access local files?</li>
+</ol>
+<hr />
+<h3>Page Content</h3>
+This data is fetched from two remote APIs.
+
+<p>The last comment is:</p>
+<p id="output_comment" style="background-color: #E0E0E0"></p>
+
+<p>Google stock price is:</p>
+<p id="output_stock" style="background-color: #E0E0E0"></p>
+
+<script>
+            var xhttp_comment = new XMLHttpRequest();
+
+            xhttp_comment.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        jsonObject=JSON.parse(this.responseText);
+                        document.getElementById("output_comment").innerHTML=jsonObject[4]['body'];
+                    } else {
+                        document.getElementById("output_comment").innerHTML="<div style='color:red'>Error</div>";
+                    }
+                }
+            }
+            // The comments API implements a CORS policy
+            // and in this case it returns the header Access-Control-Allow-Origin: null
+            xhttp_comment.open("GET", "http://jsonplaceholder.typicode.com/posts/1/comments/", true);
+            xhttp_comment.send();
+        </script>
+
+<script>
+            var xhttp_no_cors = new XMLHttpRequest();
+
+            xhttp_no_cors.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        jsonObject=JSON.parse(this.responseText.replace(/\/\/\ \[/,"["));
+                        console.log(jsonObject[0].f_reuters_url);
+                        document.getElementById("output_stock").innerHTML=jsonObject[0].l+" USD";
+                    } else {
+                        document.getElementById("output_stock").innerHTML=
+                            "<div style='color:red'>Error: this is the expected behaviour for Scenario 4</div>";
+                    }
+                }
+            }
+
+            // The finance API does not set a CORS policy
+            // When the origin is not file://, the WebView's setAllowFileAccessFromFileURLs(true)
+            // does not have any effect and the resource fails to load
+            xhttp_no_cors.open("GET", "http://finance.google.com/finance?q=NASDAQ:GOOGL&output=json", true);
+            xhttp_no_cors.send();
+        </script>
+
+<hr />
+<h3>Exploitation Helper</h3>
+<form id="payload_form" onsubmit="event.preventDefault(); updateLinkFromPayload()" action="#">
+    <label for="payload">You can simulate the attack by writing a payload below and pressing 'Inject Payload':</label><br />
+    <textarea id="payload" rows=2 style="width:100%">http://www.example.com</textarea>
+    <button id="run_payload" type="submit">Inject Payload</button>
+</form>
+
+</body>
+</html>

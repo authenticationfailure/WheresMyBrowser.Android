@@ -247,19 +247,11 @@ public class MainActivity extends AppCompatActivity
             Intent aboutIntent = new Intent(this, AboutActivity.class);
             startActivity(aboutIntent);
         } else if (id == R.id.nav_documentation) {
-            // TODO: update the URL after uploading the documentation
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.authenticationfailure.com/"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.authenticationfailure.com/wmb/"));
             startActivity(intent);
 
         } else if (id == R.id.nav_scenario_1) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setMessage(R.string.scenario_1_description).setTitle(R.string.scenario_1);
-            builder.setPositiveButton("Ok",null);
-            builder.create().show();
-
-            // TODO: setup scenario
             settingsEditor.putBoolean("enable_javascript", true);
             settingsEditor.putBoolean("enable_webview_client", true);
             settingsEditor.putBoolean("enable_webview_debugging", true);
@@ -307,13 +299,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_scenario_3) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setMessage(R.string.scenario_3_description).setTitle(R.string.scenario_3);
-            builder.setPositiveButton("Ok",null);
-            builder.create().show();
-
-            // TODO: setup scenario
             settingsEditor.putBoolean("enable_javascript", true);
             settingsEditor.putBoolean("enable_webview_client", true);
             settingsEditor.putBoolean("enable_webview_debugging", true);
@@ -337,7 +322,31 @@ public class MainActivity extends AppCompatActivity
                 Log.e("FILE_CREATE", "Error creating file");
             }
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_scenario_4) {
+
+            settingsEditor.putBoolean("enable_javascript", true);
+            settingsEditor.putBoolean("enable_webview_client", true);
+            settingsEditor.putBoolean("enable_webview_debugging", true);
+            settingsEditor.putBoolean("enable_file_access", true);
+            settingsEditor.putBoolean("enable_file_access_from_file_url", true);
+            settingsEditor.putBoolean("enable_universal_access_from_file_url", true);
+            settingsEditor.putBoolean("enable_javascript_interface", false);
+            settingsEditor.commit();
+
+            try {
+                String scenario4Asset = "web/scenario4.html";
+                String scenario4HTML =
+                FileUtils.readAssetToString(getApplicationContext(), scenario4Asset);
+
+                //webview.loadData(scenario4HTML, "text/html", "UTF-8");
+                webview.loadDataWithBaseURL(null, scenario4HTML,"text/html", "UTF-8", null);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("FILE_CREATE", "Error reading scenario 4 file");
+            }
+        }
+        else if (id == R.id.nav_share) {
             // TODO: add sharing actions
         }
 
