@@ -27,4 +27,10 @@
     <string name="go_back">Go back</string>
     <string name="request_external_storage_access">Request external storage access</string>
     <string name="about_text">Website: https://www.authenticationfailure.com/wmb/\n\nGitHub: https://github.com/authenticationfailure/WheresMyBrowser.Android\n\nTwitter: @endle__\n\nCopyright 2017, 2018 David Turco\n\nThis program is distributed under the terms of the GNU General Public License v3.0.\nhttps://www.gnu.org/licenses/gpl.html</string>
+    <string name="title_activity_load_content">Load Content into the WebView</string>
+    <string name="load_activity_description">Load data directly into the WebView with \'loadData\' or \'loadDataWithBaseURL\'. If \'loadData\' is used, the scheme is set to \'data:\' </string>
+    <string name="load_with_base_URL">Use \'loadDataWithBaseURL\'</string>
+    <string name="base_url_hint">Base URL. If empty BaseURL is set to \"null\"</string>
+    <string name="load_content_button">Load content</string>
+    <string name="html_hello_world"><![CDATA[<h1>Hello World!</h1>]]></string>
 </resources>

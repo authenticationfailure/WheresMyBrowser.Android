@@ -147,8 +147,10 @@ class WebViewPreferencesManager {
                 settings.getBoolean("enable_javascript_interface", true);
 
         if (enableJavaScriptInterface) {
-            // Invoke exported methods from MyJSInterface from JavaScript using:
+            // Invoke exported methods from JavascriptBridge from JavaScript using:
             // javascriptBridge.getSecret()
+            // Android <= 4.1 (JELLY_BEAN, API 16) is affected by CVE-2012-6636
+            // It is possible to use reflection from JavaScript to execute code remotely
             webView.addJavascriptInterface(new JavascriptBridge(), "javascriptBridge");
             webView.reload();
         } else {

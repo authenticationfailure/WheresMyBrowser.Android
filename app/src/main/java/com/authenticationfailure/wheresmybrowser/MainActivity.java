@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     int REQUEST_SD_WRITE_PERMISSION = 1;
 
     static String DEFAULT_URL = "http://www.example.com";
+    static int LOAD_CONTENT_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +73,16 @@ public class MainActivity extends AppCompatActivity
         urlBar = findViewById(R.id.urlText);
         webViewProgressBar = findViewById(R.id.webViewProgressBar);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent aboutIntent = new Intent(getApplicationContext(), LoadContentActivity.class);
+                startActivityForResult(aboutIntent, LOAD_CONTENT_ACTIVITY_REQUEST_CODE);
             }
         });
-        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -145,6 +147,23 @@ public class MainActivity extends AppCompatActivity
         }*/
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Handle response from LoadContentActivity
+        if (requestCode == LOAD_CONTENT_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Boolean useBaseUrl = data.getBooleanExtra("use_base_url", false);
+            String baseUrl = data.getStringExtra("base_url");
+            String htmlContent = data.getStringExtra("html_content");
+            if (useBaseUrl) {
+                webview.loadDataWithBaseURL(baseUrl, htmlContent,"text/html","UTF-8", baseUrl);
+            } else {
+                webview.loadData(htmlContent, "text/html", "UTF-8");
+            }
+        }
+    }
+
     private boolean requestExternalStoragePrivileges() {
         // Ask for external SD card permission for Android 6.0 API 23
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -184,7 +203,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupUrlBar() {
-        urlBar.setText(DEFAULT_URL);
+        urlBar.setHint(DEFAULT_URL);
 
         TextView.OnEditorActionListener urlBarEditorListener = new TextView.OnEditorActionListener() {
             @Override
@@ -278,7 +297,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_scenario_2) {
 
-            // TODO: setup scenario
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             builder.setMessage(R.string.scenario_2_description).setTitle(R.string.scenario_2);

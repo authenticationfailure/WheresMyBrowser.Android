@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.authenticationfailure.wheresmybrowser.MainActivity"
+    android:focusableInTouchMode="true"
     tools:showIn="@layout/app_bar_main">
 
     <EditText
@@ -16,7 +17,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:contentDescription="http://www.example.com"
         android:ems="10"
         android:inputType="textUri"
         app:layout_constraintBottom_toTopOf="@+id/webView"
