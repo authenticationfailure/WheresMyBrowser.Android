@@ -5,15 +5,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
-import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -27,24 +24,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity
@@ -79,8 +70,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent aboutIntent = new Intent(getApplicationContext(), LoadContentActivity.class);
-                startActivityForResult(aboutIntent, LOAD_CONTENT_ACTIVITY_REQUEST_CODE);
+                Intent loadContentIntent = new Intent(getApplicationContext(), LoadContentActivity.class);
+                startActivityForResult(loadContentIntent, LOAD_CONTENT_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -121,7 +112,12 @@ public class MainActivity extends AppCompatActivity
 
         settingsEditor = PreferenceManager.getDefaultSharedPreferences(this).edit();
 
-        requestExternalStoragePrivileges();
+        findViewById(R.id.urlText).post(new Runnable() {
+            public void run() {
+                checkForUpdates();
+            }
+        });
+
 
         setupData();
 
@@ -139,12 +135,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Workaround for limitations in the use of file:// URI in
-        // SDK >= Android N (API v24). This prevents the application from crashing.
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-        }*/
     }
 
     @Override
@@ -180,6 +170,11 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return true;
+    }
+
+    private void checkForUpdates() {
+        UpdatesChecker updateChecker = new UpdatesChecker(this);
+        updateChecker.check();
     }
 
     private void setupData() {
@@ -356,7 +351,6 @@ public class MainActivity extends AppCompatActivity
                 String scenario4HTML =
                 FileUtils.readAssetToString(getApplicationContext(), scenario4Asset);
 
-                //webview.loadData(scenario4HTML, "text/html", "UTF-8");
                 webview.loadDataWithBaseURL(null, scenario4HTML,"text/html", "UTF-8", null);
 
             } catch (IOException e) {

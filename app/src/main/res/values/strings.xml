@@ -33,4 +33,6 @@
     <string name="base_url_hint">Base URL. If empty BaseURL is set to \"null\"</string>
     <string name="load_content_button">Load content</string>
     <string name="html_hello_world"><![CDATA[<h1>Hello World!</h1>]]></string>
+    <string name="updates_available">A newer version of the application is available. Download it from\ </string>
+    <string name="updates_available_title">New Version Available</string>
 </resources>
