@@ -1,3 +1,17 @@
+/**
+ *
+ * Where's My Browser
+ *
+ * Copyright (C) 2017, 2018	   David Turco
+ *
+ * This program can be distributed under the terms of the GNU GPL.
+ * See the file COPYING.
+ *
+ * WARNING: This code is VULNERABLE-BY-DESIGN and it is intended as a learning tool
+ *          DO NOT USE THIS CODE IN YOUR PROJECTS!!!
+ *
+ */
+
 package com.authenticationfailure.wheresmybrowser;
 
 import android.app.Activity;
@@ -20,8 +34,6 @@ public class LoadContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_load_content);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Switch baseUrlSwitch = findViewById(R.id.baseUrlSwitch);
         final EditText baseUrlEditText = findViewById(R.id.baseUrlEditText);

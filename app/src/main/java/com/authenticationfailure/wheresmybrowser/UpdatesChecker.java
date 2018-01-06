@@ -1,3 +1,17 @@
+/**
+ *
+ * Where's My Browser
+ *
+ * Copyright (C) 2017, 2018	   David Turco
+ *
+ * This program can be distributed under the terms of the GNU GPL.
+ * See the file COPYING.
+ *
+ * WARNING: This code is VULNERABLE-BY-DESIGN and it is intended as a learning tool
+ *          DO NOT USE THIS CODE IN YOUR PROJECTS!!!
+ *
+ */
+
 package com.authenticationfailure.wheresmybrowser;
 
 import android.app.AlertDialog;
@@ -12,9 +26,18 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 /**
- * Created by endless on 06/01/2018.
+ *
+ * Where's My Browser
+ *
+ * Copyright (C) 2017, 2018	   David Turco
+ *
+ * This program can be distributed under the terms of the GNU GPL.
+ * See the file COPYING.
+ *
+ * WARNING: This code is VULNERABLE-BY-DESIGN and  it is intended as a learning tool
+ *          DO NOT USE THIS CODE IN YOUR PROJECTS!!!
+ *
  */
 
 public class UpdatesChecker {
