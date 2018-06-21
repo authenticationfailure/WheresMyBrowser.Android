@@ -55,7 +55,7 @@
                     if (this.status == 200) {
                         jsonObject=JSON.parse(this.responseText);
                         dayHigh=jsonObject.quoteSummary.result[0].summaryDetail.dayHigh.fmt;
-                        document.getElementById("output_stock").innerHTML=dayHigh+" USD";
+                        document.getElementById("output_stock").textContent=dayHigh+" USD";
                         updateLink("https://uk.finance.yahoo.com/quote/GOOGL?p=GOOGL");
                     } else {
                         document.getElementById("output_stock").innerHTML=
