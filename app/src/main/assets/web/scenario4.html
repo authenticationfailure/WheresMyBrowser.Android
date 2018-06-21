@@ -22,7 +22,7 @@ This data is fetched from two remote APIs.
 <p>The last comment is:</p>
 <p id="output_comment" style="background-color: #E0E0E0"></p>
 
-<p>Google stock price is:</p>
+<p>Google's stock price day high is:</p>
 <p id="output_stock" style="background-color: #E0E0E0"></p>
 
 <script>
@@ -50,9 +50,9 @@ This data is fetched from two remote APIs.
             xhttp_no_cors.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     if (this.status == 200) {
-                        jsonObject=JSON.parse(this.responseText.replace(/\/\/\ \[/,"["));
-                        console.log(jsonObject[0].f_reuters_url);
-                        document.getElementById("output_stock").innerHTML=jsonObject[0].l+" USD";
+                        jsonObject=JSON.parse(this.responseText);
+                        dayHigh=jsonObject.quoteSummary.result[0].summaryDetail.dayHigh.fmt;
+                        document.getElementById("output_stock").innerHTML=dayHigh+" USD";
                     } else {
                         document.getElementById("output_stock").innerHTML=
                             "<div style='color:red'>Error: this is the expected behaviour for Scenario 4</div>";
@@ -63,15 +63,18 @@ This data is fetched from two remote APIs.
             // The finance API does not set a CORS policy
             // When the origin is not file://, the WebView's setAllowFileAccessFromFileURLs(true)
             // does not have any effect and the resource fails to load
-            xhttp_no_cors.open("GET", "http://finance.google.com/finance?q=NASDAQ:GOOGL&output=json", true);
+            xhttp_no_cors.open("GET", "https://query1.finance.yahoo.com/v10/finance/quoteSummary/GOOGL?"
+                + "formatted=true&modules=summaryDetail", true);
             xhttp_no_cors.send();
         </script>
 
 <hr />
 <h3>Exploitation Helper</h3>
-<form id="payload_form" onsubmit="event.preventDefault(); updateLinkFromPayload()" action="#">
+<form id="payload_form" onsubmit="event.preventDefault(); eval(document.getElementById('payload').value)" action="#">
     <label for="payload">You can simulate the attack by writing a payload below and pressing 'Inject Payload':</label><br />
-    <textarea id="payload" rows=2 style="width:100%">http://www.example.com</textarea>
+    <textarea id="payload" rows=2 style="width:100%">// Replace last comment and stock price
+document.getElementById("output_comment").innerHTML="My new comment";
+document.getElementById("output_stock").innerHTML="XXXXX USD";</textarea>
     <button id="run_payload" type="submit">Inject Payload</button>
 </form>
 
