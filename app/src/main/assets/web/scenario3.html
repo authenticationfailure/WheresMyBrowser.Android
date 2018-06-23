@@ -25,10 +25,9 @@
         for example by taking a picture with the camera app.</small></p>
     <hr />
     <h3>Page Content</h3>
-    <p>Google's stock price day high is:</p>
+    <p>Google's stock price at some point in the past was:</p>
     <p id="output_stock" style="background-color: #E0E0E0"></p>
-
-    <p><a id="external_link" href="#">Click here for more info.</a></p>
+    <p><a id="external_link" href="#">Click here for up-to-date info.</a></p>
 
         <script>
             function updateLink(href) {
@@ -54,9 +53,10 @@
                 if (this.readyState == 4) {
                     if (this.status == 200) {
                         jsonObject=JSON.parse(this.responseText);
-                        dayHigh=jsonObject.quoteSummary.result[0].summaryDetail.dayHigh.fmt;
-                        document.getElementById("output_stock").textContent=dayHigh+" USD";
-                        updateLink("https://uk.finance.yahoo.com/quote/GOOGL?p=GOOGL");
+                        historicStockValue=jsonObject.stocks.filter(
+                            function f(item) { return item.ticker_symbol==="GOOGL" })[0];
+                        document.getElementById("output_stock").textContent=historicStockValue.stock_price+" USD";
+                        updateLink(historicStockValue.live_url);
                     } else {
                         document.getElementById("output_stock").innerHTML=
                             "<div style='color:red'>Error: is 'Universal access from file URL' enabled?</div>";
@@ -66,8 +66,7 @@
 
             // The finance API does not set a CORS policy
             // The WebView's setAllowFileAccessFromFileURLs(true) is required to access the resource
-            xhttp_no_cors.open("GET", "https://query1.finance.yahoo.com/v10/finance/quoteSummary/GOOGL?"
-                + "formatted=true&modules=summaryDetail", true);
+            xhttp_no_cors.open("GET", "http://wmbapi.authenticationfailure.com/nocors/v1/finance.json", true);
             xhttp_no_cors.send();
         </script>
 

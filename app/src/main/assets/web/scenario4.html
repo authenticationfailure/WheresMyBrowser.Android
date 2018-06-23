@@ -22,7 +22,7 @@ This data is fetched from two remote APIs.
 <p>The last comment is:</p>
 <p id="output_comment" style="background-color: #E0E0E0"></p>
 
-<p>Google's stock price day high is:</p>
+<p>Google's stock price at some point in the past was:</p>
 <p id="output_stock" style="background-color: #E0E0E0"></p>
 
 <script>
@@ -51,8 +51,9 @@ This data is fetched from two remote APIs.
                 if (this.readyState == 4) {
                     if (this.status == 200) {
                         jsonObject=JSON.parse(this.responseText);
-                        dayHigh=jsonObject.quoteSummary.result[0].summaryDetail.dayHigh.fmt;
-                        document.getElementById("output_stock").innerHTML=dayHigh+" USD";
+                        historicStockValue=jsonObject.stocks.filter(
+                            function f(item) { return item.ticker_symbol==="GOOGL" })[0];
+                        document.getElementById("output_stock").innerHTML=historicStockValue.stock_price+" USD";
                     } else {
                         document.getElementById("output_stock").innerHTML=
                             "<div style='color:red'>Error: this is the expected behaviour for Scenario 4</div>";
@@ -63,8 +64,7 @@ This data is fetched from two remote APIs.
             // The finance API does not set a CORS policy
             // When the origin is not file://, the WebView's setAllowFileAccessFromFileURLs(true)
             // does not have any effect and the resource fails to load
-            xhttp_no_cors.open("GET", "https://query1.finance.yahoo.com/v10/finance/quoteSummary/GOOGL?"
-                + "formatted=true&modules=summaryDetail", true);
+            xhttp_no_cors.open("GET", "http://wmbapi.authenticationfailure.com/nocors/v1/finance.json", true);
             xhttp_no_cors.send();
         </script>
 
