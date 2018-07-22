@@ -103,8 +103,7 @@ class WebViewPreferencesManager {
 
     public void setEnableWebViewClient() {
         Boolean enableWebViewClient = settings.getBoolean("enable_webview_client", true);
-        // Debugging can be enabled from KitKat onwards only
-        // See @TargetAPI(19)
+        // Setting a new WebViewClient allows opening links inside the webview
         if (enableWebViewClient) {
             webView.setWebViewClient(new WebViewClient());
         } else {
@@ -119,6 +118,7 @@ class WebViewPreferencesManager {
         // See @TargetAPI(19)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.setWebContentsDebuggingEnabled(enableWebViewDebugging);
+
         }
     }
 
